@@ -1,0 +1,158 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+    line-height: 1;
+    font-family: 'Poppins', sans-serif;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+*{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+a{
+    text-decoration: none !important;
+}
+
+/*...AK coding...*/
+#page-wrapper,#page-content,#yui_3_17_2_1_1610708313554_26{
+    height: 99% !important;
+}
+div[role="main"]{
+    height: 99%;
+}
+html,body{
+    height: 100% !important;
+}
+.gurukul_logo{
+    width: 200px;
+}
+.quest_logo{
+    width: 100px;
+}
+.fnt-w-700{
+    font-weight: 700;
+}
+.fnt-w-600{
+    font-weight: 600;
+}
+.login-content{
+    height: calc(100% - 100px);
+}
+.user-inp{
+    position: relative;
+}
+.user-icn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    font-size: 22px;
+    width: 45px;
+    text-align: center;
+}
+.log-btn{
+    background: #17a6ac;
+}
+.clr{
+    color: #919191;
+}
+.fnt-14{
+    font-size: 14px;
+}
+.thank-para{
+    max-width: 700px;
+}
+.go-back{
+    max-width: 100px;
+    margin: 0 auto;
+    display: table;
+}
+.thank-bg{
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 300px;
+    background-position: center;
+}
+
+@media only screen and (max-width:991px){
+    .content-right{
+        background: #fff;
+        padding: 15px;
+    }
+    .login-content{
+        margin-top: 50px;
+        height: initial;
+    }
+    .content-left{
+        margin-bottom: 30px;
+    }
+}
+
+/*...slider style...*/
+
+.slider-wrapper{
+    background: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    /* height: 350px; */
+}
+
+.slider-wrapper .carousel-inner .carousel-item img{
+    height: 200px;
+    object-fit: cover;
+}
+
+/*...slider style ends...*/
+
+@media only screen and (max-width:991px){
+    .content-right{
+        background: #fff;
+        padding: 15px;
+    }
+    .login-content{
+        margin-top: 50px;
+        height: initial;
+    }
+    .content-left{
+        margin-bottom: 30px;
+    }
+}

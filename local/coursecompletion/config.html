@@ -1,0 +1,32 @@
+<?php
+    global $OUTPUT;
+    // set to defaults if undefined
+
+    if (!isset($config->logoffurl)) {
+        $config->externalurl = '';
+    }
+
+    
+
+?>
+<table cellspacing="0" cellpadding="5" border="0">
+
+
+
+<tr valign="top" class="">
+    <td align="right"><label for="externalurl"><?php print_string("local_coursecompletion_externalurl", "local_coursecompletion") ?></label></td>
+    <td>
+        <input id="externalurl" name="externalurl" type="text" size="30" value="<?php echo $config->externalurl?>" />
+        <?php
+
+        if (isset($err["externalurl"])) {
+            echo $OUTPUT->error_text($err["externalurl"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("local_coursecompletion_externalurl_desc", "auth_talentoz") ?></td>
+</tr>
+
+
+</table>

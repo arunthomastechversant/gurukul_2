@@ -1,0 +1,156 @@
+.nav-tab-wrapper {
+    border-bottom: 0px solid #ccc;
+    margin: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    line-height: inherit;
+}
+.nav-tab {
+    float: left;
+    border: 1px solid rgba(255,255,255,.15);
+    border-bottom: navy;
+    margin-left: 0.3em;
+    padding: 8px 10px;
+    font-size: 14px;
+    line-height: 20px;
+    background: #bbb;
+    color: #5a1206;
+}
+
+.nav-tab-active{
+    border-bottom: 1px solid #f1f1f1;
+    background: #f1f1f1;
+    color: #000;
+}
+input[value="Save changes"] {
+
+    visibility: hidden;
+}
+.mo_saml_help_desc {
+    font-size:13px;
+    border-left:solid 2px rgba(128, 128, 128, 0.65);
+    margin-top:10px;
+    padding-left:10px;
+}
+
+input[type=text],select {
+width: 350px;
+border-radius: 4px;
+box-sizing: border-box;
+display: inline-block;
+border: 1px solid #ccc;
+padding: 6px 20px;
+border-color: rgba(0, 0, 0, 0.13);
+}
+input[type=tel],select {
+width: 350px;
+border-radius: 4px;
+box-sizing: border-box;
+display: inline-block;
+border: 1px solid #ccc;
+padding: 6px 20px;
+border-color: rgba(0, 0, 0, 0.13);
+}
+input[type=email],select {
+width: 350px;
+border-radius: 4px;
+box-sizing: border-box;
+display: inline-block;
+border: 1px solid #ccc;
+padding: 6px 20px;
+border-color: rgba(0, 0, 0, 0.13);
+}
+input[type=password],select {
+width: 350px;
+border-radius: 4px;
+box-sizing: border-box;
+display: inline-block;
+border: 1px solid #ccc;
+padding: 6px 20px;
+border-color: rgba(0, 0, 0, 0.13);
+}
+
+
+.button-primary:hover {
+    background:#0071a1;
+    border-color:#0071a1;
+    color:#fff;
+}
+
+.button.button-large {
+    min-height: 32px;
+    line-height: 2.30769231;
+    padding: 0 12px;
+}
+
+.button-primary {
+    background: #007cba;
+    border-color: #007cba;
+    color: #fff;
+    text-decoration: none;
+    text-shadow: none;
+}
+
+.button, .button-secondary {
+    color: #0071a1;
+    border-color: #0071a1;
+    background: #f3f5f6;
+    vertical-align: top;
+}
+
+.button, .button-primary, .button-secondary {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 2.15384615;
+    min-height: 30px;
+    margin: 0;
+    padding: 0 10px;
+    cursor: pointer;
+    border-width: 1px;
+    border-style: solid;
+    -webkit-appearance: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+/* Tooltip container */
+.copytooltip {
+    position: relative;
+	display: inline-block;
+	cursor: pointer;
+    size: letter;
+ /* If you want dots under the hoverable text */
+}
+
+
+/* Tooltip text */
+.copytooltip .copytooltiptext {
+    visibility: hidden;	
+    width: 120px;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+    background-color:grey;
+    color: white;
+    text-align: center;
+    padding: 5px; 
+    border-radius: 6px;
+	font-size: 12px;
+	white-space: nowrap;
+    /* Position the tooltip text */
+  /*  position: absolute;
+    z-index: 1;
+    bottom: 10%; 
+    left: 50%;  */
+	margin-left: 10px;  
+    font-size: small; 
+    /* Fade in tooltip */
+    opacity: 50;
+    transition: opacity 0.3s;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.copytooltip:hover .copytooltiptext {
+    visibility: visible;
+	opacity: 1;
+}

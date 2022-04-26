@@ -1,0 +1,115 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+
+    <script type="text/javascript" src="{{{ config.wwwroot }}}/local/custompage/js/jquery-1.11.2.min.js"></script>
+
+<div class="local_listcoursefiles_menu">
+
+    <!--<div class="local_listcoursefiles_selection">
+        {{#str}}mycourses{{/str}}: {{{course_selection_html}}}
+    </div>
+    <div class="local_listcoursefiles_selection">
+        {{#str}}filter_components,local_listcoursefiles{{/str}}: {{{component_selection_html}}}
+    </div>
+    <div class="local_listcoursefiles_selection">
+        {{#str}}filter_filetype,local_listcoursefiles{{/str}}: {{{file_type_selection_html}}}
+    </div>---->
+</div>
+
+
+
+{{#files_exist}}
+    
+
+    <a href="javascript:void(0);" class="local_listcoursefiles_check_uncheck_all">{{#str}}check_uncheck_all,local_listcoursefiles{{/str}}</a>
+    <form action="{{{url}}}" method="post" id="filelist">
+        <div class="local_listcoursefiles_selection">
+        Select Bulk Action : {{{bulk}}}
+    </div>
+    <div class="local_listcoursefiles_selection selectinterviewer">
+        Select Interviewer : {{{inter}}}
+    </div>
+    <div class="local_listcoursefiles_selection selectrecruiter">
+        Select recruiter : {{{recruiter}}}
+    </div></br>
+    <input name="sesskey" type="hidden" value="{{{sesskey}}}" />
+
+    <table align="center" id='dashboard_report' class="generaltable">
+        <thead>
+            <tr>      
+                <th class="header c0" scope="col"></th>        
+                <th class="header c1" scope="col">Username</th>
+                <th class="header c2" scope="col">Date OF Test</th>
+                <th class="header c3" scope="col">Test Status</th>
+                <th class="header c4" scope="col">User Status</th>
+                <th class="header c5" scope="col">Recruitment Status</th>
+                <th class="header c5" scope="col">Remarks </th>
+                <th class="header c5" scope="col">RSL Due Date</th>
+                <th class="header c6" scope="col">Test Grade</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {{#files}}
+            <tr>
+                <td class="cell c0" style="text-align:left;">
+                    <input type="checkbox" class="filecheckbox" binary="true" [disabled]="true" style="display:{{selectcase}}" id="myCheck[{{file_id}}]" name="file[{{file_id}}]"  />
+                </td>
+                <td class="cell c1">{{username}}</td>
+                <td class="cell c2">{{timeoftest}}</td>
+                <td class="cell c3">{{teststatus}}</td>
+                <td class="cell c4">{{userstatus}}</td>
+                <td class="cell c5">{{drivestatus}}</td>
+                <td class="cell c5">{{remarks}}</td>
+                <td class="cell c5">{{rsl_due}}</td>
+                <td class="cell c6">{{grade}}</td>
+
+            </tr>
+        {{/files}}
+    </table>
+
+   
+
+    <div class="local_listcoursefiles_files_actions">
+     
+            <div class="local_listcoursefiles_files_action">
+               <button type="submit" name="action" class="btn btn-primary" id="assignuser">
+                    Assign Users
+                </button>
+            </div>
+    
+
+        
+    </div>
+
+    </form>
+
+{{/files_exist}}
+{{^files_exist}}
+    <b>{{#str}}nothingfound,local_listcoursefiles{{/str}}</b>
+{{/files_exist}}
+
+
+{{#js}}
+    require(['jquery'], function($) {
+    var nextstatus = true;
+    $('.local_listcoursefiles_check_uncheck_all').click(function () {
+        $('input:checkbox').prop('checked', nextstatus);
+        nextstatus = !nextstatus;
+    });
+});
+{{/js}}

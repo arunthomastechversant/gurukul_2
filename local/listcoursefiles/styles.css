@@ -1,0 +1,24 @@
+.local_listcoursefiles_menu {
+    width: 100%;
+}
+
+.local_listcoursefiles_menu .local_listcoursefiles_selection {
+    display: inline-table;
+    margin: 0 5px;
+}
+
+.local_listcoursefiles_description {
+    margin: 8px 0;
+}
+
+.local_listcoursefiles_check_uncheck_all {
+    margin-left: 4px;
+}
+
+.local_listcoursefiles_files_actions {
+    margin-top: 25px;
+}
+
+.local_listcoursefiles_files_action {
+    margin-top: 5px;
+}

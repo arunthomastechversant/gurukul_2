@@ -1,0 +1,207 @@
+body#page-question-type-vplquestion fieldset .row {
+    background-color: #f8f8f8;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding-bottom: 5px;
+    border: 1px solid #bbb;
+    border-top: 0;
+    border-bottom: 0;
+    overflow: visible;
+}
+
+body#page-question-type-vplquestion fieldset .row:first-child {
+    border-top: 1px solid #bbb;
+    padding-top: 8px;
+}
+
+body#page-question-type-vplquestion fieldset .row:last-child {
+    border-bottom: 1px solid #bbb;
+    margin-bottom: 3px;
+}
+
+body#page-question-type-vplquestion textarea,
+.que.vplquestion textarea {
+    width: 100%;
+}
+
+body#page-question-type-vplquestion .ace_editor,
+.que.vplquestion .ace_editor {
+    border: 1px solid #999;
+}
+
+body#page-question-type-vplquestion .is-invalid + .ace_editor {
+    border: 1px solid red;
+}
+
+body#page-question-type-vplquestion .ace-placeholder,
+.que.vplquestion .ace-placeholder {
+    min-height: 50px;
+}
+
+body#page-question-type-vplquestion .ace-resize,
+.que.vplquestion .ace-resize {
+    height: 7px;
+    width: 100%;
+    cursor: ns-resize;
+    margin-top: 1px;
+    border-top: 3px double #bbb;
+}
+
+body#page-question-type-vplquestion .vplchangedialog {
+    background-color: white;
+    z-index: 500;
+    box-shadow: 4px 3px 4px lightblue;
+    border: 1px solid gray;
+    padding: 1em;
+    min-width: max-content;
+}
+
+body#page-question-type-vplquestion .vplchangedialog .btn {
+    margin: 0 .3em;
+}
+
+body#page-question-type-vplquestion .vplchangedialog .ui-dialog-buttonpane {
+    text-align: right;
+}
+
+body#page-question-type-vplquestion .vplchangedialog .ui-dialog-content {
+    padding: 1em 0;
+}
+
+body#page-question-type-vplquestion .vplchangedialog .ui-dialog-titlebar-close {
+    display: none;
+}
+
+body#page-question-type-vplquestion .ui-widget-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #aaa;
+    opacity: 0.3;
+}
+
+body#page-question-type-vplquestion ul.filelist {
+    list-style-type: none;
+    padding-left: 0;
+    margin-top: -6px;
+}
+
+body#page-question-type-vplquestion li.execfilename {
+    float: left;
+    margin-right: 1px;
+    padding-top: 12px;
+}
+
+body#page-question-type-vplquestion li.execfilename a {
+    color: black;
+    text-decoration: none;
+    padding: 6px 1.5em;
+    background-color: #d5d5d5;
+    border-radius: 5px 5px 0 0;
+}
+
+body#page-question-type-vplquestion li.execfilename a.currentfile {
+    border: 1px solid #999;
+    border-bottom-color: #d5d5d5;
+}
+
+body#page-question-type-vplquestion li.execfilename a:hover:not(.currentfile) {
+    background-color: #bbb;
+}
+
+body#page-question-type-vplquestion li.execfilename a.unused:not(.currentfile) {
+    color: #777;
+    background-color: #e3e3e3;
+}
+
+.que.vplquestion .qvpl-buttons button {
+    margin: 5px 5px 5px 0;
+}
+
+.que.vplquestion .qvpl-buttons i.fa {
+    margin-left: 6px;
+}
+
+.que.vplquestion .qvpl-set-text {
+    position: relative;
+}
+
+.que.vplquestion .qvpl-set-text span {
+    position: absolute;
+    right: 0;
+    top: -1.5em;
+}
+
+.que.vplquestion .ui-dialog-titlebar {
+    position: absolute;
+    right: 0;
+    top: -28px;
+    font-weight: bold;
+    color: black;
+}
+
+.que.vplquestion .close-terminal {
+    padding: 0 6px 2px 6px;
+    margin: 0 1px 4px .3em;
+}
+
+.que.vplquestion .fa-terminal,
+.que.vplquestion .console-title-buttons {
+    display: none;
+}
+
+.que.vplquestion .terminal {
+    width: 100%;
+    font-size: 1em;
+    padding: 3px 5px;
+    border: 2px solid #bbb;
+}
+
+.que.vplquestion .qvpl-terminal-wrapper {
+    margin-bottom: 0;
+    overflow: hidden;
+}
+
+.que.vplquestion .vpl-result {
+    background-color: white;
+    color: black;
+    border: 1px solid lightgray;
+    margin-top: 5px;
+    padding: 6px 10px;
+}
+
+.que.vplquestion .vpl-result-title {
+    font-weight: bold;
+    text-decoration: underline;
+    margin-bottom: .2em;
+    font-size: 110%;
+    padding-left: .3em;
+    background-color: #e3e3e3;
+    border: 1px solid black;
+}
+
+.que.vplquestion .vpl-title-info {
+    color: blue;
+}
+
+.que.vplquestion .vpl-title-error {
+    color: red;
+}
+
+.que.vplquestion .vpl-test-title {
+    font-style: italic;
+    border-radius: 3px;
+    padding: 0 3px;
+    background-color: #cef;
+    border: 1px solid #acd;
+}
+
+.que.vplquestion .possiblesolution {
+    line-height: 1.1em;
+}
+
+.que.vplquestion .correctness.badge {
+    color: white;
+}
