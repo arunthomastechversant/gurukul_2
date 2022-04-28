@@ -80,7 +80,7 @@ $groupname= $data->name;
     $gp->name=$groupname;
     $gp->courseid=$course->id;
     $gp->description_editor=array("text"=>"","format"=>1); 
-    $id = groups_create_group($gp, $editform, $editoroptions);           
+    $id = groups_create_group($gp, $editform, $editoroptions);         
     $record->test_groupid=$id;
     $insert_record = $DB->insert_record('urdc_recruitment_drive', $record);
 // print_r( $record);exit;
