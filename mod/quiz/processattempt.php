@@ -109,27 +109,6 @@ if ($status == quiz_attempt::OVERDUE) {
     redirect($nexturl);
 } else {
     // Attempt abandoned or finished.
-    $reurl = $CFG->wwwroot.'/local/courses.php';
-    if ($uattempts = $DB->get_record('quiz_attempts', array( 'id' => $attemptid))) {
-    //BK
-    }
-    $userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
-    $urdc_userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
-    $bt_userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
-
-    $count_rsl = $DB->count_records('rsl_user_detail', array( 'userid' => $USER->id));
-    $count_urdc = $DB->count_records('urdc_user_detail', array( 'userid' => $USER->id));
-    $count_bt = $DB->count_records('bt_user_detail', array( 'userid' => $USER->id));
-
-    // if($userstatus){
-    if(($count_rsl > 0) || ($count_urdc > 0) || ($count_bt > 0)){
-   
-        redirect($reurl);
-    }
-    // else{
-    //     redirect($reurl);
-    // }
-    // print_r("karukku");exit;
-    // add ttemplate for test finished here
-    redirect($attemptobj->review_url());
+    $reurl = 'http://localhost/index.php';
+    redirect($reurl);
 }
