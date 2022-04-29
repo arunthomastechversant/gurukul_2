@@ -31,7 +31,7 @@ global $_POST, $_GET, $_SERVER;
 
 $quizurl = $CFG->wwwroot.'/auth/Epitome/success.php';
 
-if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid'])) {
+if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid']) && $_POST['email'] != "" && $_POST['courseid'] != "" && $_POST['quizid'] !="") {
     $courseid = $_POST['courseid'];
     $quizid = $_POST['quizid'];
     $quiz = $DB->get_record_sql("SELECT cm.id as cmid FROM {course_modules} cm where cm.instance = $quizid and cm.course = $courseid and cm.module = 18");
@@ -85,12 +85,16 @@ if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid'
         $ue->enrolid      = $instance->id;
         $ue->status       = is_null($status) ? ENROL_USER_ACTIVE : $status;
         $ue->userid       = $userid;
-        $ue->timestart    = 0;
+        $ue->timestart    = time();
         $ue->timeend      = 0;
         $ue->modifierid   = 52;
         $ue->timecreated  = time();
         $ue->timemodified = $ue->timecreated;
         $ue->id = $DB->insert_record('user_enrolments', $ue);
+        
+        $roleid = 5;
+        $context = context_course::instance($instance->courseid, MUST_EXIST);
+        role_assign($roleid, $userid, $context->id);
 
         $status = new stdClass();
         $status->userid = $userid;
