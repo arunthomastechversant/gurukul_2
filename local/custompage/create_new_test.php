@@ -38,7 +38,6 @@ $PAGE->set_title("Create ".$company." Test");
 $PAGE->set_heading("Create ".$company." Test");
 $PAGE->set_url($CFG->wwwroot.'/local/custompage/create_new_test.php');
 $coursenode = $PAGE->navbar->add('Create '.$company.' Test', new moodle_url($CFG->wwwroot.'/local/custompage/create_new_test.php'));
-$PAGE->navbar->add('Add '.$company.' Recruitment Drive', new moodle_url($CFG->wwwroot.'/local/custompage/create_new_recruitment_drive.php'));
 // $PAGE->set_context(context_system::instance());
 //~ $url = $CFG->wwwroot.'/local/custompage/get_data.php';
 // $return = $CFG->wwwroot.'/local/custompage/bu_list.php';
