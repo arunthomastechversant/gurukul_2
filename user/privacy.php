@@ -1,26 +1,3 @@
-<style>
-.privacy_wrapper{
-    background:#fff;
-    padding: 30px;
-    max-width: 95%;
-    margin: 0 auto;
-    box-shadow: 0 0 10px rgba(0,0,0,0.3);
-}
-.privacy_wrapper h4{
-    border-bottom: 2px solid #ccc;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
-}
-.privacy_wrapper ul{
-    list-style:disc;
-    height: 400px;
-    overflow-y: auto;
-    scrollbar-width: thin;
-}
-.privacy_wrapper ul li{
-    margin-bottom: 10px;
-}
-</style>
 <?php
 require_once('../config.php'); 
 require_login();
@@ -33,6 +10,27 @@ $returnurl = $CFG->wwwroot.'/login/logout.php?sesskey='.sesskey();
         <style>
             .welcome-banner{
                 background:linear-gradient(to bottom right,rgba(67, 247, 255, 0.3), rgba(22, 166, 172,0.8)), url(<?php echo $imagepath ?>);
+            }
+            .privacy_wrapper{
+                background:#fff;
+                padding: 30px;
+                max-width: 95%;
+                margin: 0 auto;
+                box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            }
+            .privacy_wrapper h4{
+                border-bottom: 2px solid #ccc;
+                margin-bottom: 30px;
+                padding-bottom: 10px;
+            }
+            .privacy_wrapper ul{
+                list-style:disc;
+                height: 400px;
+                overflow-y: auto;
+                scrollbar-width: thin;
+            }
+            .privacy_wrapper ul li{
+                margin-bottom: 10px;
             }
         </style>
         <title>QuESTer:Privacy Notice</title>

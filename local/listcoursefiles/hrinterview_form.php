@@ -1,9 +1,4 @@
-<style>
-table {
-  width: 100%;
-  display: inline-table !important;
-}
-</style>
+
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -314,3 +309,12 @@ function group_by($key, $data) {
 }
 
 echo $OUTPUT->footer();
+
+?>
+
+<style>
+table {
+  width: 100%;
+  display: inline-table !important;
+}
+</style>

@@ -1,3 +1,60 @@
+<?php
+require_once(dirname(__FILE__) . '/../../config.php');
+require_once($CFG->dirroot . '/mod/quiz/locallib.php');
+
+
+require_login();
+$drive_id = optional_param('drive_id', '', PARAM_RAW);
+$userid = optional_param('userid', '', PARAM_RAW);
+$context = context_system::instance();
+$linkurl = new moodle_url('/local/listcoursefiles/detailview.php');
+
+$enrolled_users = $DB->get_record_sql("select mqa.id as attemptid,bu.userid,mqa.uniqueid,mqa.sumgrades,qz.sumgrades as sumg,mqa.timestart,qz.name,mcm.id as quizid from mdl_rsl_user_detail bu JOIN mdl_user u ON u.id=bu.userid JOIN mdl_groups g
+ON g.id=bu.test_groupid JOIN mdl_rsl_recruitment_drive brd ON brd.id=bu.recruitment_id join mdl_quiz_attempts mqa on
+mqa.userid = bu.userid join {quiz} as qz on qz.id = mqa.quiz join mdl_course_modules as mcm on mcm.instance = qz.id
+WHERE bu.recruitment_id =$drive_id and u.id = $userid");
+//print_r($enrolled_users );exit();
+// Correct the navbar .
+// Set the name for the page.
+$title = "Assessment Report";
+$linktext = "Assessment Report (".$enrolled_users->name." )";
+// Set the url.
+
+// Print the page header.
+$PAGE->set_context($context);
+$PAGE->set_url($linkurl);
+$PAGE->set_pagelayout('admin');
+$PAGE->set_title($title);
+// Set the page heading.
+$PAGE->set_heading($linktext);
+$context = context_system::instance();
+$companyid = iomad::get_my_companyid($context);
+echo $OUTPUT->header();
+
+$imaged =$DB->get_record_sql("SELECT * FROM {user_proctoringimages} where userid=$userid");
+if($imaged)
+{
+	$image = $imaged->userimage;
+}else{
+    $image = $CFG->wwwroot.'/local/listcoursefiles/chart/userimage.jpg';
+}
+$datas = $DB->get_records_sql("SELECT * from {proctoringdetails} where userid = $userid and quizid = $enrolled_users->quizid limit 350");
+// $datas = $DB->get_records('proctoringdetails',array('userid' => $userid));
+// $datas = $DB->get_records('proctoringdetails',array('userid' => 534));
+$email = $DB->get_record('user_info_data',array('fieldid' => 80,'userid' => $userid))->data;
+$name = $DB->get_record('user_info_data',array('fieldid' => 81,'userid' => $userid))->data;
+$totalgarde = $enrolled_users->sumgrades / $enrolled_users->sumg * 100;
+$total = round($totalgarde,2);
+if($total <= 34)
+    $status = "Low";
+else if($total >=65)
+    $status = "High";
+else
+    $status = "Medium";
+$date = date('d M, Y H:i:s A',$enrolled_users->timestart);
+// print_r($email);exit();
+
+?>
 <style>
     .three-column-images
     {
@@ -58,63 +115,6 @@
     }
     
 </style>
-<?php
-require_once(dirname(__FILE__) . '/../../config.php');
-require_once($CFG->dirroot . '/mod/quiz/locallib.php');
-
-
-require_login();
-$drive_id = optional_param('drive_id', '', PARAM_RAW);
-$userid = optional_param('userid', '', PARAM_RAW);
-$context = context_system::instance();
-$linkurl = new moodle_url('/local/listcoursefiles/detailview.php');
-
-$enrolled_users = $DB->get_record_sql("select mqa.id as attemptid,bu.userid,mqa.uniqueid,mqa.sumgrades,qz.sumgrades as sumg,mqa.timestart,qz.name,mcm.id as quizid from mdl_rsl_user_detail bu JOIN mdl_user u ON u.id=bu.userid JOIN mdl_groups g
-ON g.id=bu.test_groupid JOIN mdl_rsl_recruitment_drive brd ON brd.id=bu.recruitment_id join mdl_quiz_attempts mqa on
-mqa.userid = bu.userid join {quiz} as qz on qz.id = mqa.quiz join mdl_course_modules as mcm on mcm.instance = qz.id
-WHERE bu.recruitment_id =$drive_id and u.id = $userid");
-//print_r($enrolled_users );exit();
-// Correct the navbar .
-// Set the name for the page.
-$title = "Assessment Report";
-$linktext = "Assessment Report (".$enrolled_users->name." )";
-// Set the url.
-
-// Print the page header.
-$PAGE->set_context($context);
-$PAGE->set_url($linkurl);
-$PAGE->set_pagelayout('admin');
-$PAGE->set_title($title);
-// Set the page heading.
-$PAGE->set_heading($linktext);
-$context = context_system::instance();
-$companyid = iomad::get_my_companyid($context);
-echo $OUTPUT->header();
-
-$imaged =$DB->get_record_sql("SELECT * FROM {user_proctoringimages} where userid=$userid");
-if($imaged)
-{
-	$image = $imaged->userimage;
-}else{
-    $image = $CFG->wwwroot.'/local/listcoursefiles/chart/userimage.jpg';
-}
-$datas = $DB->get_records_sql("SELECT * from {proctoringdetails} where userid = $userid and quizid = $enrolled_users->quizid limit 350");
-// $datas = $DB->get_records('proctoringdetails',array('userid' => $userid));
-// $datas = $DB->get_records('proctoringdetails',array('userid' => 534));
-$email = $DB->get_record('user_info_data',array('fieldid' => 80,'userid' => $userid))->data;
-$name = $DB->get_record('user_info_data',array('fieldid' => 81,'userid' => $userid))->data;
-$totalgarde = $enrolled_users->sumgrades / $enrolled_users->sumg * 100;
-$total = round($totalgarde,2);
-if($total <= 34)
-    $status = "Low";
-else if($total >=65)
-    $status = "High";
-else
-    $status = "Medium";
-$date = date('d M, Y H:i:s A',$enrolled_users->timestart);
-// print_r($email);exit();
-
-?>
     <!-- <link href="chart/main.css" rel="stylesheet" type="text/css"/> -->
     <link href="chart/jquery.dvstr_jqp_graph.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>

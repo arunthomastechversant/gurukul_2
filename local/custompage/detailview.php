@@ -1,63 +1,3 @@
-<style>
-    .three-column-images
-    {
-        /* background:skyblue; */
-    }
-    .three-column-images .row
-    {
-        text-align:center;
-    }
-    .three-column-images img
-    {
-        margin-bottom:10px;
-        margin-top:50px;
-    }
-
-    .three-column-images i
-    {
-        font-weight:bold;
-    }
-
-    .container .email-signature .image img{
-        height:30px;
-        width:30px;
-        object-fit:cover;
-        border-radius:50%;
-        border:2px solid white;
-        margin-top:5px;
-        float:left;
-        align:left;
-        }
-         .container .email-signature .image h4{
-         font-size:17px;
-         float:left;
-         padding-left:7px;
-         margin-top:12px;
-         /* letter-spacing:20px; */
-         }
-         .container .email-signature  i{
-         height:25px;
-         width:25px;
-         line-height:35px;
-         text-align:center;
-         margin-top:0px;
-         font-size:21px;
-         }
-
-    .gauge {
-      width: 320px;
-      height: 240px;
-    }
-    .circular--square {
-        border-radius: 50%;
-        width : 50px;
-    }
-    .for-label{
-        font-size : 25px;
-        margin-top: 10px;
-    }
-    
-</style>
 <?php
 require_once(dirname(__FILE__) . '/../../config.php');
 require_once($CFG->dirroot . '/mod/quiz/locallib.php');
@@ -148,6 +88,66 @@ foreach($ctry_ids as $key => $value){
 // print_r($email);exit();
 // echo ' <button type="button" class="btn btn-secondary btn-sm" id="printdata" style="text-align:none; color: #01766e;">Print</button>';
 ?>
+<style>
+    .three-column-images
+    {
+        /* background:skyblue; */
+    }
+    .three-column-images .row
+    {
+        text-align:center;
+    }
+    .three-column-images img
+    {
+        margin-bottom:10px;
+        margin-top:50px;
+    }
+
+    .three-column-images i
+    {
+        font-weight:bold;
+    }
+
+    .container .email-signature .image img{
+        height:30px;
+        width:30px;
+        object-fit:cover;
+        border-radius:50%;
+        border:2px solid white;
+        margin-top:5px;
+        float:left;
+        align:left;
+        }
+         .container .email-signature .image h4{
+         font-size:17px;
+         float:left;
+         padding-left:7px;
+         margin-top:12px;
+         /* letter-spacing:20px; */
+         }
+         .container .email-signature  i{
+         height:25px;
+         width:25px;
+         line-height:35px;
+         text-align:center;
+         margin-top:0px;
+         font-size:21px;
+         }
+
+    .gauge {
+      width: 320px;
+      height: 240px;
+    }
+    .circular--square {
+        border-radius: 50%;
+        width : 50px;
+    }
+    .for-label{
+        font-size : 25px;
+        margin-top: 10px;
+    }
+    
+</style>
     <!-- <link href="chart/main.css" rel="stylesheet" type="text/css"/> -->
     <link href="../listcoursefiles/chart/jquery.dvstr_jqp_graph.min.css" rel="stylesheet" type="text/css"/>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript"></script>
