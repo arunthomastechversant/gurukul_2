@@ -1,13 +1,3 @@
-<style>
-body.pagelayout-incourse .activity-navigation {
-    border-top: none;
-    display: none;
-}
-.activity-navigation .row {
-    align-items: center;
-    display: none;
-}
-</style>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -112,3 +102,16 @@ if ($status == quiz_attempt::OVERDUE) {
     $reurl = 'http://localhost/index.php';
     redirect($reurl);
 }
+
+?>
+
+<style>
+body.pagelayout-incourse .activity-navigation {
+    border-top: none;
+    display: none;
+}
+.activity-navigation .row {
+    align-items: center;
+    display: none;
+}
+</style>

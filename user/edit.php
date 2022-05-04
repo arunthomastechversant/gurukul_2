@@ -1,14 +1,3 @@
-<style>
-    #id_moodle_picture{
-        display : block;
-    }
-    #page-navbar,#message-user-button{
-        display : none;
-    }
-    .ftoggler,.collapsible-actions .collapseexpand{
-        display : none;
-    }
-</style>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -719,3 +708,14 @@ $(document).on('change','#id_profile_field_urdcstate',function(){
     });
 })
 </script>   
+<style>
+    #id_moodle_picture{
+        display : block;
+    }
+    #page-navbar,#message-user-button{
+        display : none;
+    }
+    .ftoggler,.collapsible-actions .collapseexpand{
+        display : none;
+    }
+</style>

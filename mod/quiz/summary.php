@@ -1,8 +1,3 @@
-<style>
-body.pagelayout-incourse .activity-navigation {
-    display: none;
-}
-</style>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -101,3 +96,10 @@ echo $output->summary_page($attemptobj, $displayoptions);
 
 // Log this page view.
 $attemptobj->fire_attempt_summary_viewed_event();
+
+?>
+<style>
+body.pagelayout-incourse .activity-navigation {
+    display: none;
+}
+</style>

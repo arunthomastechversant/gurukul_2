@@ -1,8 +1,3 @@
-<style>
-body.pagelayout-incourse .activity-navigation {
-    display: none;
-}
-</style>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -482,3 +477,9 @@ function checkDeviceSupport(callback) {
 }
 </script>
 <?php } ?>
+
+<style>
+body.pagelayout-incourse .activity-navigation {
+    display: none;
+}
+</style>

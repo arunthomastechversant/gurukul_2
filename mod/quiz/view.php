@@ -1,14 +1,3 @@
-<style>
-body.pagelayout-incourse .activity-navigation {
-    display: none;
-}
-#page-navbar{
-    display: none;
-}
-.box .generalbox{
-    display: none;
-}
-</style>
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -259,7 +248,17 @@ if (isguestuser()) {
     echo $output->view_page($course, $quiz, $cm, $context, $viewobj);
 }
 
-?>
-
-<?php
 echo $OUTPUT->footer();
+
+?>
+<style>
+body.pagelayout-incourse .activity-navigation {
+    display: none;
+}
+#page-navbar{
+    display: none;
+}
+.box .generalbox{
+    display: none;
+}
+</style>
