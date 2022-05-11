@@ -29,8 +29,6 @@ require_once($CFG->dirroot . '/course/lib.php');
 global $CFG, $USER, $SESSION;
 global $_POST, $_GET, $_SERVER;
 
-$quizurl = $CFG->wwwroot.'/auth/Epitome/success.php';
-
 if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid']) && $_POST['email'] != "" && $_POST['courseid'] != "" && $_POST['quizid'] !="") {
     $courseid = $_POST['courseid'];
     $quizid = $_POST['quizid'];

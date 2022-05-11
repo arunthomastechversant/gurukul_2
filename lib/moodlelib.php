@@ -2647,7 +2647,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
         // We cannot redirect for AJAX scripts either.
         $preventredirect = true;
     }
-
+                        
     // Setup global $COURSE, themes, language and locale.
     if (!empty($courseorid)) {
         if (is_object($courseorid)) {
