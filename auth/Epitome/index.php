@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Techversant Api moodle plugin
 
 /**
@@ -28,36 +29,43 @@ require_once($CFG->dirroot . '/course/lib.php');
 
 global $CFG, $USER, $SESSION;
 global $_POST, $_GET, $_SERVER;
-
-if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid']) && $_POST['email'] != "" && $_POST['courseid'] != "" && $_POST['quizid'] !="") {
-    $courseid = $_POST['courseid'];
-    $quizid = $_POST['quizid'];
+$userJSON = file_get_contents('php://input');;
+$userData = json_decode($userJSON ,true);
+if (isset($userData['email']) && isset($userData['courseid']) && isset($userData['quizid']) && isset($userData['userid'])) {
+    $courseid = $userData['courseid'];
+    $quizid = $userData['quizid'];
     $quiz = $DB->get_record_sql("SELECT cm.id as cmid FROM {course_modules} cm where cm.instance = $quizid and cm.course = $courseid and cm.module = 18");
     $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-    if ($DB->record_exists_select('user', 'email = ?', array($_POST['email']))){
-        if($DB->record_exists_select('user', 'email = ? and auth = ? ', array($_POST['email'],'manual'))){
-            $userid = $DB->get_record('user',array('email' => $_POST['email'], 'auth' => 'manual'))->id;
+    if ($DB->record_exists_select('user', 'email = ?', array($userData['email']))){
+        if($DB->record_exists_select('user', 'email = ? and auth = ? ', array($userData['email'],'manual'))){
+            $userid = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'))->id;
             $USER->loggedin = true;
             $USER->site = $CFG->wwwroot;
             $USER = get_complete_user_data('id', $userid);
             // Everywhere we can access user by its id.
             complete_user_login($USER);
-            header('Location: '.$quizurl); 
+            $response = array();
+            $response['message'] = 'Success';
+            $response['quizurl'] = $quizurl;
+            echo json_encode($response);
         }else{
-            echo 'User Exist In This Email...!';
+            $response = array();
+            $response['message'] = 'User Exist In This Email...!';
+            $response['quizurl'] = "";
+            echo json_encode($response);
         }
     }else{
         $user = new stdClass();
         // This array contain and return the value of attributes which are mapped.
-        if (!empty($_POST['email'])) {
-            $user->email = $_POST['email'];
-            $user->username = $_POST['email'];
+        if (!empty($userData['email'])) {
+            $user->email = $userData['email'];
+            $user->username = $userData['email'];
         }
-        if (!empty($_POST['firstname'])) {
-            $user->firstname = $_POST['firstname'];
+        if (!empty($userData['firstname'])) {
+            $user->firstname = $userData['firstname'];
         }
-        if (!empty($_POST['lastname'])) {
-            $user->lastname = $_POST['lastname'];
+        if (!empty($userData['lastname'])) {
+            $user->lastname = $userData['lastname'];
         }
         $companyid = 5;
         $company = new company($companyid);
@@ -67,6 +75,8 @@ if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid'
         $user->userid = 52;
         $user->newpassword = 'Epitome@1234';
         $user->companyid = $company->id;
+        $user->epitomeuserid = $userData['userid'];
+
 
         if (!$userid = company_user::create($user)) {
             $this->verbose("Error inserting a new user in the database!");
@@ -106,8 +116,14 @@ if (isset($_POST['email']) && isset($_POST['courseid']) && isset($_POST['quizid'
         $USER = get_complete_user_data('id', $userid);
         // Everywhere we can access user by its id.
         complete_user_login($USER);
-        header('Location: '.$quizurl); 
+        $response = array();
+        $response['message'] = 'Success';
+        $response['quizurl'] = $quizurl;
+        echo json_encode($response);
     }
 }else{
-    echo 'Missing Some Datas';
+    $response = array();
+    $response['message'] = 'Missing Some Datas...!';
+    $response['quizurl'] = "";
+    echo json_encode($response);
 }
