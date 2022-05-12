@@ -1,6 +1,5 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: *");
+header('Access-Control-Allow-Origin: *');
 
 // This file is part of Techversant Api moodle plugin
 

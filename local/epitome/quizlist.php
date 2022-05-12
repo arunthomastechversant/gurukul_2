@@ -1,5 +1,7 @@
 <?php
 
+header('Access-Control-Allow-Origin: *');
+
 // This file is part of Techversant Api moodle plugin
 
 /**
@@ -18,19 +20,16 @@ $quizlist = $DB->get_records_sql("SELECT q.id,name,tq.questions FROM {quiz} as q
 $response = array();
 $response['message'] = 'Success';
 $quizdetails = array();
-$row = array();
 foreach($quizlist as $quiz){
     $questions = explode(',', $quiz->questions);
     $questioncategory = array();
     foreach($questions as $question){
-        $row = array();
         $category = explode('-', $question);
         if($category[1] > 0){
             $row1['category'] = $category[0];
             $row1['categoryname'] = $DB->get_record('question_categories', array('id'=>$category[0]))->name;
             array_push($questioncategory,$row1);
         }
-        
     }
     $row['quizid'] = $quiz->id;
     $row['quizname'] = $quiz->name;
@@ -38,4 +37,5 @@ foreach($quizlist as $quiz){
     array_push($quizdetails,$row);
 
 }
+
 echo json_encode($quizdetails);
