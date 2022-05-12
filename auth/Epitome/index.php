@@ -9,7 +9,7 @@
  *
  * @copyright   2022  Techversant
  * @category    authentication
- * @package     techapi
+ * @package     epitome
  */
 
 
