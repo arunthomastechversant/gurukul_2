@@ -96,7 +96,7 @@ $count_bt = $DB->count_records('bt_user_detail', array( 'userid' => $userid));
 
 // BK
 require_login();
-require_user();
+// require_user();
 if ($course->id != SITEID) {
     require_login($course);
 } else if (!isloggedin()) {

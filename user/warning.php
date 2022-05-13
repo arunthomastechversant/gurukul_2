@@ -1,7 +1,7 @@
 <?php
 require_once('../config.php'); 
 //require_login();
-require_user();
+// require_user();
 global $DB,$USER;
 $key = optional_param('key', '', PARAM_RAW);
 $returnurl = $CFG->wwwroot.'/login/logout.php?sesskey='.sesskey();

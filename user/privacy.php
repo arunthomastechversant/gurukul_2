@@ -1,7 +1,7 @@
 <?php
 require_once('../config.php'); 
 require_login();
-require_user();
+// require_user();
 $returnurl = $CFG->wwwroot.'/login/logout.php?sesskey='.sesskey();
 ?>
 <!DOCTYPE html>

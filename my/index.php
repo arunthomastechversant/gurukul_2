@@ -47,7 +47,7 @@ $companyid = $DB->get_record('company_users',array('userid' => $USER->id))->comp
 // print_r($companyid);exit();
 if($companyid != 3){
     require_login();
-    require_user();
+    // require_user();
 }
 
 $hassiteconfig = has_capability('moodle/site:config', context_system::instance());

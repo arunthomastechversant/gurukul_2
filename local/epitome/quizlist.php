@@ -1,6 +1,12 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dev.beta.epitome.ai');
+header('Access-Control-Allow-Origin: https://beta.epitome.ai');
+header('Access-Control-Allow-Origin: http://localhost:4100');
+header('Access-Control-Allow-Origin: https://localhost:4200');
+header('Access-Control-Allow-Methods: POST,GET,OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
+
 
 // This file is part of Techversant Api moodle plugin
 

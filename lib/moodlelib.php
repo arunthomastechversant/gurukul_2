@@ -10711,226 +10711,226 @@ function site_is_public() {
 
     return $ispublic;
 }
-function require_user(){
-    global $CFG, $SESSION, $USER, $PAGE, $SITE, $DB, $OUTPUT;
-    $usernotfullysetup = user_not_fully_set_up($USER, true);
-    //$role = $DB->get_record_sql("SELECT roleid from {role_assignments} where userid = $USER->id")->roleid;
-    $role = $DB->get_record_sql("SELECT roleid from {role_assignments} where userid = $USER->id ORDER BY id DESC LIMIT 1")->roleid;
-    $companyid = $DB->get_record('company_users',array('userid' => $USER->id))->companyid;
-    $course = $DB->get_record('company_course_mapping',array('companyid' => $companyid))->courseid;
-    $loggedinUser = $DB->get_record('user_enrolments',array('userid' => $USER->id));
-    // $timeend = $DB->get_record('user_enrolments',array('userid' => $USER->id))->timeend;
-    $timestart = $loggedinUser->timestart;
-    $timeend = $loggedinUser->timeend;
-    $today = date("d-m-Y H:i:s");
-    $expiration_date = strtotime($today);
-    $expaired = ($timeend < $expiration_date)?true:false;
-    $courseNotStarted = ($timestart > $expiration_date)?true:false;
-    //print_r($usernotfullysetup);exit();
-    if($companyid == 3){
-    //     $url = $_SERVER['REQUEST_URI'];
-    //     print_r($url);exit();
-        $returnurl = $CFG->wwwroot.'/my';
-        redirect($returnurl);
-    }
-    if($role == 16){
-        $returnUrl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
-        redirect($returnUrl);
-    }else if($role == 17){
-        $returnUrl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
-        redirect($returnUrl);
-    }
-    if($usernotfullysetup){
-        if($role == 5){
-            if($courseNotStarted){
-                $url = $_SERVER['REQUEST_URI'];
-                $key = md5('coursenotstarted');
-                if(strpos($url, 'warning.php') == true){
-                }else{
-                    $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                    //  print_r($reloginurl);exit();
-                    redirect($reloginurl);
-                }
-            }
-            else if($expaired){
-                $url = $_SERVER['REQUEST_URI'];
-                $key = md5('courseexpired');
-                if(strpos($url, 'warning.php') == true){
-                }else{
-                    $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                    //  print_r($reloginurl);exit();
-                    redirect($reloginurl);
-                }
-            }else{
-                $userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
-                $urdcUserStatus = $DB->get_record('urdc_user_detail', array( 'userid' => $USER->id));
-                $btUserStatus = $DB->get_record('bt_user_detail', array( 'userid' => $USER->id));
-                $commonUserStatus = $DB->get_record('user_detail', array( 'userid' => $userid));
+// function require_user(){
+//     global $CFG, $SESSION, $USER, $PAGE, $SITE, $DB, $OUTPUT;
+//     $usernotfullysetup = user_not_fully_set_up($USER, true);
+//     //$role = $DB->get_record_sql("SELECT roleid from {role_assignments} where userid = $USER->id")->roleid;
+//     $role = $DB->get_record_sql("SELECT roleid from {role_assignments} where userid = $USER->id ORDER BY id DESC LIMIT 1")->roleid;
+//     $companyid = $DB->get_record('company_users',array('userid' => $USER->id))->companyid;
+//     $course = $DB->get_record('company_course_mapping',array('companyid' => $companyid))->courseid;
+//     $loggedinUser = $DB->get_record('user_enrolments',array('userid' => $USER->id));
+//     // $timeend = $DB->get_record('user_enrolments',array('userid' => $USER->id))->timeend;
+//     $timestart = $loggedinUser->timestart;
+//     $timeend = $loggedinUser->timeend;
+//     $today = date("d-m-Y H:i:s");
+//     $expiration_date = strtotime($today);
+//     $expaired = ($timeend < $expiration_date)?true:false;
+//     $courseNotStarted = ($timestart > $expiration_date)?true:false;
+//     //print_r($usernotfullysetup);exit();
+//     if($companyid == 3){
+//     //     $url = $_SERVER['REQUEST_URI'];
+//     //     print_r($url);exit();
+//         $returnurl = $CFG->wwwroot.'/my';
+//         redirect($returnurl);
+//     }
+//     if($role == 16){
+//         $returnUrl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
+//         redirect($returnUrl);
+//     }else if($role == 17){
+//         $returnUrl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
+//         redirect($returnUrl);
+//     }
+//     if($usernotfullysetup){
+//         if($role == 5){
+//             if($courseNotStarted){
+//                 $url = $_SERVER['REQUEST_URI'];
+//                 $key = md5('coursenotstarted');
+//                 if(strpos($url, 'warning.php') == true){
+//                 }else{
+//                     $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                     //  print_r($reloginurl);exit();
+//                     redirect($reloginurl);
+//                 }
+//             }
+//             else if($expaired){
+//                 $url = $_SERVER['REQUEST_URI'];
+//                 $key = md5('courseexpired');
+//                 if(strpos($url, 'warning.php') == true){
+//                 }else{
+//                     $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                     //  print_r($reloginurl);exit();
+//                     redirect($reloginurl);
+//                 }
+//             }else{
+//                 $userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
+//                 $urdcUserStatus = $DB->get_record('urdc_user_detail', array( 'userid' => $USER->id));
+//                 $btUserStatus = $DB->get_record('bt_user_detail', array( 'userid' => $USER->id));
+//                 $commonUserStatus = $DB->get_record('user_detail', array( 'userid' => $userid));
     
-                $count_rsl = $DB->count_records('rsl_user_detail', array( 'userid' => $USER->id));
-                $count_urdc = $DB->count_records('urdc_user_detail', array( 'userid' => $USER->id));
-                $count_bt = $DB->count_records('bt_user_detail', array( 'userid' => $USER->id));
-                $common_count = $DB->count_records('user_detail', array( 'userid' => $userid));
+//                 $count_rsl = $DB->count_records('rsl_user_detail', array( 'userid' => $USER->id));
+//                 $count_urdc = $DB->count_records('urdc_user_detail', array( 'userid' => $USER->id));
+//                 $count_bt = $DB->count_records('bt_user_detail', array( 'userid' => $USER->id));
+//                 $common_count = $DB->count_records('user_detail', array( 'userid' => $userid));
                 
-                if($userstatus->itracqid != 0){
-                    $rectdetail = $DB->get_record('rsl_recruitment_drive', array( 'id' => $userstatus->recruitment_id));
-                    $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {rsl_user_detail} rud   JOIN {rsl_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
-                    $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
-                    // print_r($attempts);exit();
-                    if($attempts){
-                        $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
-                        if($count == count($attempts)){
-                            $url = $_SERVER['REQUEST_URI'];
-                            $key = md5('attemptsexceeded');
-                            if(strpos($url, 'warning.php') == true){
-                            }else{
-                                $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                                //  print_r($reloginurl);exit();
-                                redirect($reloginurl);
-                            }
-                        }
-                    }else{
-                        $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-                        // redirect($reurl);
-                    }
-                    redirect($reurl);
-                }elseif($count_rsl > 0 && isset($userstatus)){
-                    $rectdetail = $DB->get_record('rsl_recruitment_drive', array( 'id' => $userstatus->recruitment_id));
-                    $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {rsl_user_detail} rud   JOIN {rsl_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
-                    $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
-                    // print_r($attempts);exit();
-                    if($attempts){
-                        $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
-                        if($count == count($attempts)){
-                            $isrsl = $drivedata=$DB->get_record_sql("SELECT * FROM {userstatus}  where userid=$USER->id ORDER BY id DESC ")->userstatus;
-                            if($isrsl == 'Assigned For RSL'){
-                                // $reurl = $CFG->wwwroot.'/my/';
-                            }else{
-                                $url = $_SERVER['REQUEST_URI'];
-                                $key = md5('attemptsexceeded');
-                                if(strpos($url, 'warning.php') == true){
-                                }else{
-                                    $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                                    //  print_r($reloginurl);exit();
-                                    redirect($reloginurl);
-                                }
-                            }
-                            // 
-                            // $errormsg = get_string("invalidlogin");
+//                 if($userstatus->itracqid != 0){
+//                     $rectdetail = $DB->get_record('rsl_recruitment_drive', array( 'id' => $userstatus->recruitment_id));
+//                     $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {rsl_user_detail} rud   JOIN {rsl_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
+//                     $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
+//                     // print_r($attempts);exit();
+//                     if($attempts){
+//                         $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
+//                         if($count == count($attempts)){
+//                             $url = $_SERVER['REQUEST_URI'];
+//                             $key = md5('attemptsexceeded');
+//                             if(strpos($url, 'warning.php') == true){
+//                             }else{
+//                                 $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                                 //  print_r($reloginurl);exit();
+//                                 redirect($reloginurl);
+//                             }
+//                         }
+//                     }else{
+//                         $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
+//                         // redirect($reurl);
+//                     }
+//                     redirect($reurl);
+//                 }elseif($count_rsl > 0 && isset($userstatus)){
+//                     $rectdetail = $DB->get_record('rsl_recruitment_drive', array( 'id' => $userstatus->recruitment_id));
+//                     $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {rsl_user_detail} rud   JOIN {rsl_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
+//                     $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
+//                     // print_r($attempts);exit();
+//                     if($attempts){
+//                         $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
+//                         if($count == count($attempts)){
+//                             $isrsl = $drivedata=$DB->get_record_sql("SELECT * FROM {userstatus}  where userid=$USER->id ORDER BY id DESC ")->userstatus;
+//                             if($isrsl == 'Assigned For RSL'){
+//                                 // $reurl = $CFG->wwwroot.'/my/';
+//                             }else{
+//                                 $url = $_SERVER['REQUEST_URI'];
+//                                 $key = md5('attemptsexceeded');
+//                                 if(strpos($url, 'warning.php') == true){
+//                                 }else{
+//                                     $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                                     //  print_r($reloginurl);exit();
+//                                     redirect($reloginurl);
+//                                 }
+//                             }
+//                             // 
+//                             // $errormsg = get_string("invalidlogin");
 
-                        }
-                    }else{
-                        $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-                        redirect($reurl);
-                    }
-                    // print_r($reurl);exit();
+//                         }
+//                     }else{
+//                         $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
+//                         redirect($reurl);
+//                     }
+//                     // print_r($reurl);exit();
     
-                }
-                elseif ($count_urdc > 0 && isset($urdcUserStatus)) {
-                    $rectdetail = $DB->get_record('urdc_recruitment_drive', array( 'id' => $urdcUserStatus->recruitment_id));
-                    $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {urdc_user_detail} rud   JOIN {urdc_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
-                    $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
-                    // print_r($attempts);exit();
-                    if($attempts){
-                        $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
-                        if($count == count($attempts)){
-                            $url = $_SERVER['REQUEST_URI'];
-                            $key = md5('attemptsexceeded');
-                            if(strpos($url, 'warning.php') == true){
-                            }else{
-                                $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                                //  print_r($reloginurl);exit();
-                                redirect($reloginurl);
-                            }
-                        }
-                    }else{
-                        $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-                        // redirect($reurl);
-                    }
-                    redirect($reurl);
-                }
-                elseif ($count_bt > 0 && isset($btUserStatus)) {
-                    $rectdetail = $DB->get_record('bt_recruitment_drive', array( 'id' => $btUserStatus->recruitment_id));
-                    $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {bt_user_detail} rud  JOIN {bt_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
-                    $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
-                    // print_r($attempts);exit();
-                    if($attempts){
-                        $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
-                        if($count == count($attempts)){
-                            $url = $_SERVER['REQUEST_URI'];
-                            $key = md5('attemptsexceeded');
-                            if(strpos($url, 'warning.php') == true){
-                            }else{
-                                $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                                //  print_r($reloginurl);exit();
-                                redirect($reloginurl);
-                            }
-                        }
-                    }else{
-                        $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-                        // redirect($reurl);
-                    }
-                    redirect($reurl);
-                }elseif ($common_count > 0 && isset($commonUserStatus)){
-                    $rectdetail = $DB->get_record('recruitment_drive', array( 'id' => $commonUserStatus->recruitment_id));
-                    $course = $DB->get_record('company_course',array('companyid' => $companyid))->courseid;
-                    $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid FROM {user_detail} rud JOIN {recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$userid");
-                    $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
-                    // print_r($attempts);exit();
-                    if($attempts){
-                        $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
-                        if($count == count($attempts)){
-                            $url = $_SERVER['REQUEST_URI'];
-                            $key = md5('attemptsexceeded');
-                            if(strpos($url, 'warning.php') == true){
-                            }else{
-                                $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                                //  print_r($reloginurl);exit();
-                                redirect($reloginurl);
-                            }
-                        }
-                    }else{
-                        $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
-                        // redirect($reurl);
-                    }
-                    redirect($reurl);
-                }
-            }
-        }
-    }else{
-        if($role == 5){
-            //print_r($expaired);exit();
-            if($courseNotStarted){
-                $url = $_SERVER['REQUEST_URI'];
-                $key = md5('coursenotstarted');
-                if(strpos($url, 'warning.php') == true){
-                }else{
-                    $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                    //  print_r($reloginurl);exit();
-                    redirect($reloginurl);
-                }
-            }
-            else if($expaired){
-                $url = $_SERVER['REQUEST_URI'];
-                $key = md5('courseexpired');
-                if(strpos($url, 'warning.php') == true){
-                }else{
-                    $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
-                    //  print_r($reloginurl);exit();
-                    redirect($reloginurl);
-                }
-            }else{
-                $url = $_SERVER['REQUEST_URI'];
-                $key = 'my';
-                $key1 = 'profile.php';
-                $key2 = 'courses.php';
-                $key3 = 'warning.php';
-                    if(strpos($url, $key) == true || strpos($url, $key1) == true || strpos($url, $key2) == true || strpos($url, $key3) == true){
-                        $reurl = $CFG->wwwroot .'/user/welcome.php';
-                        redirect($reurl);
-                    }
-            }
-        }
-    }
+//                 }
+//                 elseif ($count_urdc > 0 && isset($urdcUserStatus)) {
+//                     $rectdetail = $DB->get_record('urdc_recruitment_drive', array( 'id' => $urdcUserStatus->recruitment_id));
+//                     $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {urdc_user_detail} rud   JOIN {urdc_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
+//                     $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
+//                     // print_r($attempts);exit();
+//                     if($attempts){
+//                         $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
+//                         if($count == count($attempts)){
+//                             $url = $_SERVER['REQUEST_URI'];
+//                             $key = md5('attemptsexceeded');
+//                             if(strpos($url, 'warning.php') == true){
+//                             }else{
+//                                 $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                                 //  print_r($reloginurl);exit();
+//                                 redirect($reloginurl);
+//                             }
+//                         }
+//                     }else{
+//                         $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
+//                         // redirect($reurl);
+//                     }
+//                     redirect($reurl);
+//                 }
+//                 elseif ($count_bt > 0 && isset($btUserStatus)) {
+//                     $rectdetail = $DB->get_record('bt_recruitment_drive', array( 'id' => $btUserStatus->recruitment_id));
+//                     $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid   FROM {bt_user_detail} rud  JOIN {bt_recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$USER->id");
+//                     $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
+//                     // print_r($attempts);exit();
+//                     if($attempts){
+//                         $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
+//                         if($count == count($attempts)){
+//                             $url = $_SERVER['REQUEST_URI'];
+//                             $key = md5('attemptsexceeded');
+//                             if(strpos($url, 'warning.php') == true){
+//                             }else{
+//                                 $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                                 //  print_r($reloginurl);exit();
+//                                 redirect($reloginurl);
+//                             }
+//                         }
+//                     }else{
+//                         $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
+//                         // redirect($reurl);
+//                     }
+//                     redirect($reurl);
+//                 }elseif ($common_count > 0 && isset($commonUserStatus)){
+//                     $rectdetail = $DB->get_record('recruitment_drive', array( 'id' => $commonUserStatus->recruitment_id));
+//                     $course = $DB->get_record('company_course',array('companyid' => $companyid))->courseid;
+//                     $quiz = $DB->get_record_sql("SELECT rud.userid,rud.recruitment_id,cm.id as cmid FROM {user_detail} rud JOIN {recruitment_drive} rrd  ON rrd.id = rud.recruitment_id join {course_modules} cm ON cm.instance=rrd.test where cm.course=$course AND cm.module=18 AND cm.instance =$rectdetail->test  AND rud.userid=$userid");
+//                     $attempts = $DB->get_records('quiz_attempts',array('quiz' => $rectdetail->test, 'userid' => $USER->id ,'state' => 'finished'));
+//                     // print_r($attempts);exit();
+//                     if($attempts){
+//                         $count = $DB->get_record('quiz',array('id' => $rectdetail->test))->attempts;
+//                         if($count == count($attempts)){
+//                             $url = $_SERVER['REQUEST_URI'];
+//                             $key = md5('attemptsexceeded');
+//                             if(strpos($url, 'warning.php') == true){
+//                             }else{
+//                                 $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                                 //  print_r($reloginurl);exit();
+//                                 redirect($reloginurl);
+//                             }
+//                         }
+//                     }else{
+//                         $reurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
+//                         // redirect($reurl);
+//                     }
+//                     redirect($reurl);
+//                 }
+//             }
+//         }
+//     }else{
+//         if($role == 5){
+//             //print_r($expaired);exit();
+//             if($courseNotStarted){
+//                 $url = $_SERVER['REQUEST_URI'];
+//                 $key = md5('coursenotstarted');
+//                 if(strpos($url, 'warning.php') == true){
+//                 }else{
+//                     $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                     //  print_r($reloginurl);exit();
+//                     redirect($reloginurl);
+//                 }
+//             }
+//             else if($expaired){
+//                 $url = $_SERVER['REQUEST_URI'];
+//                 $key = md5('courseexpired');
+//                 if(strpos($url, 'warning.php') == true){
+//                 }else{
+//                     $reloginurl = $CFG->wwwroot.'/user/warning.php?key='.$key.'&sesskey='.sesskey();
+//                     //  print_r($reloginurl);exit();
+//                     redirect($reloginurl);
+//                 }
+//             }else{
+//                 $url = $_SERVER['REQUEST_URI'];
+//                 $key = 'my';
+//                 $key1 = 'profile.php';
+//                 $key2 = 'courses.php';
+//                 $key3 = 'warning.php';
+//                     if(strpos($url, $key) == true || strpos($url, $key1) == true || strpos($url, $key2) == true || strpos($url, $key3) == true){
+//                         $reurl = $CFG->wwwroot .'/user/welcome.php';
+//                         redirect($reurl);
+//                     }
+//             }
+//         }
+//     }
     
-}
+// }

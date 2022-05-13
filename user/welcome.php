@@ -1,7 +1,7 @@
 <?php
 require_once('../config.php'); 
 require_login();
-require_user();
+// require_user();
 global $DB,$CFG,$PAGE,$USER,$SESSION,$PAGE,$OUTPUT;
 $returnurl = $CFG->wwwroot.'/login/logout.php?sesskey='.sesskey();
 $companyid = $DB->get_record('company_users',array('userid' => $USER->id))->companyid;

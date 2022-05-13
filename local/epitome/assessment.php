@@ -1,6 +1,12 @@
 <?php
 
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: https://dev.beta.epitome.ai');
+header('Access-Control-Allow-Origin: https://beta.epitome.ai');
+header('Access-Control-Allow-Origin: http://localhost:4100');
+header('Access-Control-Allow-Origin: https://localhost:4200');
+header('Access-Control-Allow-Methods: POST,GET,OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
+
 
 // This file is part of Techversant Api moodle plugin
 
@@ -23,7 +29,7 @@ if($quizData){
     $quizdetails = array();
     foreach($quizids as $quizid){
         $quizdata = $DB->get_record('quiz', array('id' => $quizid));
-        $userattempts = $DB->get_records_sql("SELECT qa.sumgrades,u.firstname,u.lastname,u.epitomeuserid FROM {quiz_attempts} as qa join {user} as u on u.id = qa.userid where qa.quiz = $quizid ORDER BY qa.id DESC");
+        $userattempts = $DB->get_records_sql("SELECT qa.sumgrades,u.firstname,u.lastname,u.epitomeuserid FROM {quiz_attempts} as qa join {user} as u on u.id = qa.userid where qa.quiz = $quizid and u.deleted = 0 ORDER BY qa.id DESC");
         $userdetails = array();
         if($userattempts){
             foreach($userattempts as $attempt){

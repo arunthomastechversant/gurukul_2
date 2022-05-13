@@ -44,7 +44,7 @@ $reset          = optional_param('reset', null, PARAM_BOOL);
 
 $PAGE->set_url('/user/profile.php', array('id' => $userid));
     require_login();
-    require_user();
+    // require_user();
 if (!empty($CFG->forceloginforprofiles)) {
     //require_login();
     //require_user();
