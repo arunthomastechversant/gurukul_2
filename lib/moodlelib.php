@@ -2782,79 +2782,79 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
     // edit their profile and this is not a WS request, perform just the lax check.
     // It will allow them to use filepicker on the profile edit page.
 
-    $Userole = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where userid =$USER->id")->roleid;
-    if($Userole == 5){
+    // $Userole = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where userid =$USER->id")->roleid;
+    // if($Userole == 5){
 
-    $userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
+    // $userstatus = $DB->get_record('rsl_user_detail', array( 'userid' => $USER->id));
 
-    $urdcUserStatus = $DB->get_record('urdc_user_detail', array( 'userid' => $USER->id));
+    // $urdcUserStatus = $DB->get_record('urdc_user_detail', array( 'userid' => $USER->id));
 
-    $btUserStatus = $DB->get_record('bt_user_detail', array( 'userid' => $USER->id));
+    // $btUserStatus = $DB->get_record('bt_user_detail', array( 'userid' => $USER->id));
 
-    $CommonUserStatus = $DB->get_record('user_detail', array( 'userid' => $USER->id));
+    // $CommonUserStatus = $DB->get_record('user_detail', array( 'userid' => $USER->id));
 
 
-        //print_r($timeend);exit();
-        if ($preventredirect && !WS_SERVER) {
-            if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
-                $usernotfullysetup = user_not_fully_set_up($USER, false);
+    //     //print_r($timeend);exit();
+    //     if ($preventredirect && !WS_SERVER) {
+    //         if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
+    //             $usernotfullysetup = user_not_fully_set_up($USER, false);
 
-            }else{
-                // $chkrecru = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where contextid = 1  and userid =$USER->id");
-                // $rolename = $DB->get_field('role','shortname',['id' => $chkrecru->roleid]);
-                // if($rolename == 'rr'){
-                //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
-                //     redirect($reurl);
-                // }elseif($rolename == 'editingteacher'){
-                //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
-                //     redirect($reurl);
+    //         }else{
+    //             // $chkrecru = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where contextid = 1  and userid =$USER->id");
+    //             // $rolename = $DB->get_field('role','shortname',['id' => $chkrecru->roleid]);
+    //             // if($rolename == 'rr'){
+    //             //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
+    //             //     redirect($reurl);
+    //             // }elseif($rolename == 'editingteacher'){
+    //             //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
+    //             //     redirect($reurl);
                 
-                // }
-            }
-        } else {
-            if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
-                $usernotfullysetup = user_not_fully_set_up($USER, true);
-            }else{
-                // $chkrecru = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where contextid = 1  and userid =$USER->id");
-                // $rolename = $DB->get_field('role','shortname',['id' => $chkrecru->roleid]);
-                // if($rolename == 'rr'){
-                //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
-                //     redirect($reurl);
-                // }elseif($rolename == 'editingteacher'){
-                //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
-                //     redirect($reurl);
+    //             // }
+    //         }
+    //     } else {
+    //         if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
+    //             $usernotfullysetup = user_not_fully_set_up($USER, true);
+    //         }else{
+    //             // $chkrecru = $DB->get_record_sql("SELECT * FROM mdl_role_assignments where contextid = 1  and userid =$USER->id");
+    //             // $rolename = $DB->get_field('role','shortname',['id' => $chkrecru->roleid]);
+    //             // if($rolename == 'rr'){
+    //             //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/hrinterviewlist.php';
+    //             //     redirect($reurl);
+    //             // }elseif($rolename == 'editingteacher'){
+    //             //     $reurl = $CFG->wwwroot.'/local/listcoursefiles/interviewlist.php';
+    //             //     redirect($reurl);
                 
-                // }
-            }
-        }
-        //print_r($usernotfullysetup);exit();
-        // echo $usernotfullysetup;
+    //             // }
+    //         }
+    //     }
+    //     //print_r($usernotfullysetup);exit();
+    //     // echo $usernotfullysetup;
 
-            if ($usernotfullysetup) {
-                if ($preventredirect) {
-                    throw new moodle_exception('usernotfullysetup');
-                }
-                if ($setwantsurltome) {
-                    // print_r($usernotfullysetup);exit();
-                    $SESSION->wantsurl = qualified_me();
-                }
-            }else{  
-                // print_r($usernotfullysetup);exit();
-                if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
-                    $url = $_SERVER['REQUEST_URI'];
-                    $key = 'my';
-                    $key1 = 'profile.php';
-                    $key2 = 'courses.php';
-                    $key3 = 'warning.php';
-                    if(strpos($url, $key) == true || strpos($url, $key1) == true || strpos($url, $key2) == true || strpos($url, $key3) == true){
-                        $reurl = $CFG->wwwroot .'/user/welcome.php';
-                        redirect($reurl);
-                    }
-                }
+    //         if ($usernotfullysetup) {
+    //             if ($preventredirect) {
+    //                 throw new moodle_exception('usernotfullysetup');
+    //             }
+    //             if ($setwantsurltome) {
+    //                 // print_r($usernotfullysetup);exit();
+    //                 $SESSION->wantsurl = qualified_me();
+    //             }
+    //         }else{  
+    //             // print_r($usernotfullysetup);exit();
+    //             if(isset($userstatus) || isset($urdcUserStatus) || isset($btUserStatus) || isset($CommonUserStatus)){
+    //                 $url = $_SERVER['REQUEST_URI'];
+    //                 $key = 'my';
+    //                 $key1 = 'profile.php';
+    //                 $key2 = 'courses.php';
+    //                 $key3 = 'warning.php';
+    //                 if(strpos($url, $key) == true || strpos($url, $key1) == true || strpos($url, $key2) == true || strpos($url, $key3) == true){
+    //                     $reurl = $CFG->wwwroot .'/user/welcome.php';
+    //                     redirect($reurl);
+    //                 }
+    //             }
 
-            }
+    //         }
         
-    }
+    // }
 
     // Make sure the USER has a sesskey set up. Used for CSRF protection.
     sesskey();

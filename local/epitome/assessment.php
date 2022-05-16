@@ -24,18 +24,18 @@ require(__DIR__.'/../../config.php');
 $quizJSON = file_get_contents('php://input');;
 $quizData = json_decode($quizJSON ,true);
 
-if($quizData){
-    $quizids = explode(',',$quizData['quizid']);
+if($quizData['quizid']){
     $quizdetails = array();
-    foreach($quizids as $quizid){
+    foreach($quizData['quizid'] as $quizid){
         $quizdata = $DB->get_record('quiz', array('id' => $quizid));
-        $userattempts = $DB->get_records_sql("SELECT qa.sumgrades,u.firstname,u.lastname,u.epitomeuserid FROM {quiz_attempts} as qa join {user} as u on u.id = qa.userid where qa.quiz = $quizid and u.deleted = 0 ORDER BY qa.id DESC");
+        $userattempts = $DB->get_records_sql("SELECT qa.sumgrades,u.firstname,u.lastname,u.epitomeuserid,q.sumgrades as maxmark FROM {quiz_attempts} as qa join {quiz} as q on q.id = qa.quiz join {user} as u on u.id = qa.userid where qa.quiz = $quizid and u.deleted = 0 and qa.state = 'finished' ORDER BY qa.id DESC");
         $userdetails = array();
         if($userattempts){
             foreach($userattempts as $attempt){
                 $row1['userid'] = $attempt->epitomeuserid;
                 $row1['name'] = fullname($attempt);
-                $row1['mark'] = $attempt->sumgrades;
+                $row1['maxmark'] = $attempt->maxmark;
+                $row1['obtainedmark'] = $attempt->sumgrades;
                 array_push($userdetails,$row1);
             }
             $row['quizid'] = $quizdata->id;

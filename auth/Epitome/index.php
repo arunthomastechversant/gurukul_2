@@ -1,9 +1,10 @@
 <?php
 
-header('Access-Control-Allow-Origin: https://dev.beta.epitome.ai');
-header('Access-Control-Allow-Origin: https://beta.epitome.ai');
-header('Access-Control-Allow-Origin: http://localhost:4100');
-header('Access-Control-Allow-Origin: https://localhost:4200');
+header('Access-Control-Allow-Origin: *');
+// header('Access-Control-Allow-Origin: https://dev.beta.epitome.ai');
+// header('Access-Control-Allow-Origin: https://beta.epitome.ai');
+// header('Access-Control-Allow-Origin: http://localhost:4100');
+// header('Access-Control-Allow-Origin: https://localhost:4200');
 header('Access-Control-Allow-Methods: POST,GET,OPTIONS, PUT, DELETE');
 header('Access-Control-Allow-Headers: Authorization, Origin, X-Requested-With, Content-Type, Accept');
 
@@ -53,8 +54,10 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
                 $USER = get_complete_user_data('id', $userid);
                 // Everywhere we can access user by its id.
                 complete_user_login($USER);
+                set_moodle_cookie($USER->username);
                 $response = array();
                 $response['message'] = 'Success';
+                $response['user'] = $USER;
                 $response['quizurl'] = $quizurl;
                 echo json_encode($response);
             }else{
@@ -125,8 +128,10 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
             $USER = get_complete_user_data('id', $userid);
             // Everywhere we can access user by its id.
             complete_user_login($USER);
+            set_moodle_cookie($USER->username);
             $response = array();
             $response['message'] = 'Success';
+            $response['user'] = $USER;
             $response['quizurl'] = $quizurl;
             echo json_encode($response);
         }
