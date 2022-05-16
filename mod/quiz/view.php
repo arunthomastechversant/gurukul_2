@@ -32,7 +32,7 @@ require_once($CFG->dirroot . '/course/format/lib.php');
 
 $id = optional_param('id', 0, PARAM_INT); // Course Module ID, or ...
 $q = optional_param('q',  0, PARAM_INT);  // Quiz ID.
-
+$epitomeid = optional_param('epitomeid',  0, PARAM_INT);  // User ID.
 
 if ($id) {
     if (!$cm = get_coursemodule_from_id('quiz', $id)) {
@@ -53,8 +53,18 @@ if ($id) {
     }
 }
 
-// Check login and get context.
+if($epitomeid && $epitomeid !=""){
+    $userid = $DB->get_record('user',array('epitomeuserid' => $epitomeid))->id;
+    // Check login and get context.
+    $USER->loggedin = true;
+    $USER->site = $CFG->wwwroot;
+    $USER = get_complete_user_data('id', $userid);
+    complete_user_login($USER);
+    set_moodle_cookie($USER->username);
+}
+
 require_login($course, false, $cm);
+
 $context = context_module::instance($cm->id);
 require_capability('mod/quiz:view', $context);
 

@@ -2637,7 +2637,7 @@ function get_login_url() {
 function require_login($courseorid = null, $autologinguest = true, $cm = null, $setwantsurltome = true, $preventredirect = false) {
     global $CFG, $SESSION, $USER, $PAGE, $SITE, $DB, $OUTPUT;
 
-    //print_r($USER);exit();
+
     // Must not redirect when byteserving already started.
     if (!empty($_SERVER['HTTP_RANGE'])) {
         $preventredirect = true;
@@ -2647,7 +2647,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
         // We cannot redirect for AJAX scripts either.
         $preventredirect = true;
     }
-                        
+            
     // Setup global $COURSE, themes, language and locale.
     if (!empty($courseorid)) {
         if (is_object($courseorid)) {
@@ -2697,7 +2697,7 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
             redirect(get_login_url());
         }
     }
-
+    // print_r($USER);exit();
     // If the user is not even logged in yet then make sure they are.
     if (!isloggedin()) {
         if ($autologinguest and !empty($CFG->guestloginbutton) and !empty($CFG->autologinguests)) {

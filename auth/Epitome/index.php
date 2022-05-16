@@ -45,19 +45,17 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
     $quizid = $userData['quizid'];
     $quiz = $DB->get_record_sql("SELECT cm.id as cmid FROM {course_modules} cm where cm.instance = $quizid and cm.course = $courseid and cm.module = 18");
     if($quiz){
-        $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid;
         if ($DB->record_exists_select('user', 'email = ?', array($userData['email']))){
             if($DB->record_exists_select('user', 'email = ? and auth = ? ', array($userData['email'],'manual'))){
-                $userid = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'))->id;
+                $userdata = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'));
                 $USER->loggedin = true;
                 $USER->site = $CFG->wwwroot;
-                $USER = get_complete_user_data('id', $userid);
+                $USER = get_complete_user_data('id', $userdata->id);
                 // Everywhere we can access user by its id.
                 complete_user_login($USER);
-                set_moodle_cookie($USER->username);
+                $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$userdata->epitomeuserid;
                 $response = array();
                 $response['message'] = 'Success';
-                $response['user'] = $USER;
                 $response['quizurl'] = $quizurl;
                 echo json_encode($response);
             }else{
@@ -128,10 +126,9 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
             $USER = get_complete_user_data('id', $userid);
             // Everywhere we can access user by its id.
             complete_user_login($USER);
-            set_moodle_cookie($USER->username);
+            $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$user->epitomeuserid;
             $response = array();
             $response['message'] = 'Success';
-            $response['user'] = $USER;
             $response['quizurl'] = $quizurl;
             echo json_encode($response);
         }
