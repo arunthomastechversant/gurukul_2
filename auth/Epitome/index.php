@@ -47,13 +47,13 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
     if($quiz){
         if ($DB->record_exists_select('user', 'email = ?', array($userData['email']))){
             if($DB->record_exists_select('user', 'email = ? and auth = ? ', array($userData['email'],'manual'))){
-                $userdata = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'));
+                $userid = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'))->id;
                 $USER->loggedin = true;
                 $USER->site = $CFG->wwwroot;
-                $USER = get_complete_user_data('id', $userdata->id);
+                $USER = get_complete_user_data('id', $userid);
                 // Everywhere we can access user by its id.
                 complete_user_login($USER);
-                $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$userdata->epitomeuserid;
+                $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$userid;
                 $response = array();
                 $response['message'] = 'Success';
                 $response['quizurl'] = $quizurl;
@@ -126,7 +126,7 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
             $USER = get_complete_user_data('id', $userid);
             // Everywhere we can access user by its id.
             complete_user_login($USER);
-            $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$user->epitomeuserid;
+            $quizurl = $CFG->wwwroot.'/mod/quiz/view.php?id='.$quiz->cmid.'&epitomeid='.$userid;
             $response = array();
             $response['message'] = 'Success';
             $response['quizurl'] = $quizurl;
