@@ -40,6 +40,7 @@ global $CFG, $USER, $SESSION;
 global $_POST, $_GET, $_SERVER;
 $userJSON = file_get_contents('php://input');;
 $userData = json_decode($userJSON ,true);
+$token = random_string(32);
 if (isset($userData['email']) && isset($userData['courseid']) && isset($userData['quizid']) && isset($userData['userid'])) {
     $courseid = $userData['courseid'];
     $quizid = $userData['quizid'];
@@ -50,6 +51,11 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
                 $userid = $DB->get_record('user',array('email' => $userData['email'], 'auth' => 'manual'))->id;
                 $USER->loggedin = true;
                 $USER->site = $CFG->wwwroot;
+                $logintoken = new stdClass();
+                $logintoken->userid = $userid;
+                $logintoken->token =  $token;	
+                $logintoken->timecreated =  time();	
+                $DB->insert_record('user_logintokens', $logintoken);
                 $USER = get_complete_user_data('id', $userid);
                 // Everywhere we can access user by its id.
                 complete_user_login($USER);
@@ -57,6 +63,7 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
                 $response = array();
                 $response['message'] = 'Success';
                 $response['quizurl'] = $quizurl;
+                $response['token'] = $token;
                 echo json_encode($response);
             }else{
                 $response = array();
@@ -120,6 +127,12 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
             $status->userstatus =  'User Created';
             $status->timestamp =  time();	
             $DB->insert_record('userstatus', $status);
+
+            $logintoken = new stdClass();
+            $logintoken->userid = $userid;
+            $logintoken->token =  $token;	
+            $logintoken->timecreated =  time();	
+            $DB->insert_record('user_logintokens', $logintoken);
             
             $USER->loggedin = true;
             $USER->site = $CFG->wwwroot;
@@ -130,6 +143,7 @@ if (isset($userData['email']) && isset($userData['courseid']) && isset($userData
             $response = array();
             $response['message'] = 'Success';
             $response['quizurl'] = $quizurl;
+            $response['token'] = $token;
             echo json_encode($response);
         }
     }else{

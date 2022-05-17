@@ -27,21 +27,23 @@ $userData = json_decode($userJSON ,true);
 if($userData['userid']){
     $userdetails = array();
     foreach($userData['userid'] as $userid){
-        $userdata = $DB->get_record('user', array('epitomeuserid' => $userid));
-        $userattempts = $DB->get_records_sql("SELECT q.name,q.id,qa.sumgrades,q.sumgrades as maxmark FROM {quiz_attempts} as qa join {quiz} as q on q.id = qa.quiz join {user} as u on u.id = qa.userid where u.epitomeuserid = $userid and u.deleted = 0 and qa.state = 'finished' ORDER BY qa.id DESC");
-        $quizetails = array();
-        if($userattempts){
-            foreach($userattempts as $attempt){
-                $row1['quizid'] = $attempt->id;
-                $row1['quizname'] = $attempt->name;
-                $row1['maxmark'] = $attempt->maxmark;
-                $row1['obtainedmark'] = $attempt->sumgrades;
-                array_push($quizetails,$row1);
+        if($DB->record_exists_select('user', 'epitomeuserid = ?', array($userid))){
+            $userdata = $DB->get_record('user', array('epitomeuserid' => $userid));
+            $userattempts = $DB->get_records_sql("SELECT q.name,q.id,qa.sumgrades,q.sumgrades as maxmark FROM {quiz_attempts} as qa join {quiz} as q on q.id = qa.quiz join {user} as u on u.id = qa.userid where u.id = $userdata->id and u.deleted = 0 and qa.state = 'finished' ORDER BY qa.id DESC");
+            $quizetails = array();
+            if($userattempts){
+                foreach($userattempts as $attempt){
+                    $row1['quizid'] = $attempt->id;
+                    $row1['quizname'] = $attempt->name;
+                    $row1['maxmark'] = $attempt->maxmark;
+                    $row1['obtainedmark'] = $attempt->sumgrades;
+                    array_push($quizetails,$row1);
+                }
+                $row['userid'] = $userdata->epitomeuserid;
+                $row['name'] = fullname($userdata);
+                $row['quizetails'] = $quizetails;
+                array_push($userdetails,$row);
             }
-            $row['userid'] = $userdata->epitomeuserid;
-            $row['name'] = fullname($userdata);
-            $row['quizetails'] = $quizetails;
-            array_push($userdetails,$row);
         }
     }
 echo json_encode($userdetails);

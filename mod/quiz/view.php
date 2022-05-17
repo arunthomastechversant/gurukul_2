@@ -52,7 +52,7 @@ if ($id) {
         print_error('invalidcoursemodule');
     }
 }
-print_r($userid);exit();
+
 if($userid && $userid !=""){
     // Check login and get context.
     $USER->loggedin = true;

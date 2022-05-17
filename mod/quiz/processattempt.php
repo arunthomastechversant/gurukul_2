@@ -99,7 +99,9 @@ if ($status == quiz_attempt::OVERDUE) {
     redirect($nexturl);
 } else {
     // Attempt abandoned or finished.
-    $reurl = 'http://localhost/index.php';
+    $DB->delete_records('user_logintokens', array('userid'=>$USER->id));
+    require_logout();
+    $reurl = 'https://beta.epitome.ai/';
     redirect($reurl);
 }
 
