@@ -34,8 +34,8 @@ function validateBearerToken($user = NULL) {
         if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
             $key = '/var/www/html/gurukul_2/local/epitome/public.key';
             $token = json_decode(base64_decode(str_replace('_', '/', str_replace('-','+',explode('.', $matches[1])[1]))));
-            if(!empty($user) && !empty($token->data->userid)){
-                if(in_array($token->data->role,$roles) && $user == $token->data->userid){
+            if(!empty($user) && !empty($token->data->user_id)){
+                if(in_array($token->data->role,$roles) && $user == $token->data->user_id){
                     return true;
                 }else{
                     return false;
