@@ -6,6 +6,7 @@ $quizid  = optional_param('id', '', PARAM_INT);
 
 if($_POST['dataurl']  && $_POST['userid'] && $_POST['quizid'] ){
 
+	$imagepath = "";
 	$context = context_user::instance($_POST['userid'], MUST_EXIST);
 	$fs = get_file_storage();
 	if ($files = $fs->get_area_files($context->id, 'local_custompage', 'imagefile',false, 'sortorder', false)) 

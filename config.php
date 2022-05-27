@@ -11,12 +11,37 @@ $CFG->dbname    = 'gurukul_2';
 $CFG->dbuser    = 'root';
 $CFG->dbpass    = 'Techv@1234';
 $CFG->prefix    = 'mdl_';
+
 $CFG->dboptions = array (
   'dbpersist' => 0,
-  'dbport' => '',
+  'dbport' => '3306',
   'dbsocket' => '',
   'dbcollation' => 'utf8mb4_unicode_ci',
+  // 'dbssl' => true,
+  // 'dbcertificate' => '/var/www/html/DigiCertGlobalRootCA.crt.pem',
 );
+
+// $CFG->dbhost    = 'localhost';
+// $CFG->dbname    = 'gurukul_2';
+// $CFG->dbuser    = 'root';
+// $CFG->dbpass    = 'Techv@12?34';
+
+// $CFG->dbhost    = 'epitome-assessment.mysql.database.azure.com';
+// $CFG->dbname    = 'epitome_assessment';
+// $CFG->dbuser    = 'epitomeAssessmentAdim';
+// $CFG->dbpass    = '5T{"=k#EHnG(>83v';
+
+// $CFG->dbhost    = '172.20.0.1';
+// $CFG->dbname    = 'gurukul_2';
+// $CFG->dbuser    = 'gurukul';
+// $CFG->dbpass    = 'jIPROcwBkx3dognvdHlP';
+
+// $CFG->dbhost    = 'epitome-assessment.mysql.database.azure.com';
+// $CFG->dbname    = 'epitome_assessment';
+// $CFG->dbuser    = 'epitomeAssessmentAdim';
+// $CFG->dbuser    = 'gurukul';
+// $CFG->dbpass    = 'Guruakls1237dhkdui2j';
+
 
 $CFG->wwwroot   = 'http://localhost/gurukul_2';
 $CFG->dataroot  = '/var/www/datagurukul_2';

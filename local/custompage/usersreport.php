@@ -1,9 +1,3 @@
-<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.5/css/autoFill.dataTables.min.css">
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 <?php
 // This file is part of Moodle - http://moodle.org/
 //
@@ -55,6 +49,12 @@ require_login();
 echo $OUTPUT->header();
 // $mform = new usersreport_form();
 // $mform->display();
+echo '<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/autofill/2.3.5/css/autoFill.dataTables.min.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">';
 $drives = $DB->get_records_sql("SELECT id,name FROM  {recruitment_drive} where company_id = $companyid ");
 echo '<select type="" name="id_drive_select" id="id_drive_select" class="custom-select"><option value="" selected disabled>---- Recrutment Drives ----</option>';
 foreach($drives as $keys => $drive){

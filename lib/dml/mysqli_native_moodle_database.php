@@ -568,12 +568,35 @@ class mysqli_native_moodle_database extends moodle_database {
 
         $conn = null;
         $dberr = null;
+        
+        //ssl cofiguration settings modified code
+        $ssl = false;
+        if (empty($this->dboptions['dbssl'])) {
+            $ssl = false;
+        } else {
+            $ssl = (bool)$this->dboptions['dbssl'];
+            if (!empty($this->dboptions['dbcertificate'])) {
+                $dbcertificate = (string)$this->dboptions['dbcertificate'];
+            }
+        }
         try {
-            // real_connect() is doing things we don't expext.
-            $conn = @$this->mysqli->real_connect($dbhost, $dbuser, $dbpass, $dbname, $dbport, $dbsocket);
-        } catch (\Exception $e) {
+            if ($ssl){
+                $this->mysqli->ssl_set(NULL,NULL, $dbcertificate, NULL, NULL) ;
+                $conn = $this->mysqli->real_connect($dbhost, $dbuser, $dbpass, $dbname, $dbport, NULL, MYSQLI_CLIENT_SSL_DONT_VERIFY_SERVER_CERT);
+            } else {
+                $conn = @$this->mysqli->real_connect($dbhost, $dbuser, $dbpass, $dbname, $dbport, $dbsocket);
+            }
+        }catch (\Exception $e) {
             $dberr = "$e";
         }
+
+        // try {
+        //     // real_connect() is doing things we don't expext.
+        //     $conn = @$this->mysqli->real_connect($dbhost, $dbuser, $dbpass, $dbname, $dbport, $dbsocket);
+        // } catch (\Exception $e) {
+        //     $dberr = "$e";
+        // }
+
         if (!$conn) {
             $dberr = $dberr ?: $this->mysqli->connect_error;
             $this->mysqli = null;

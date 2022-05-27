@@ -388,7 +388,7 @@ $(document).ready(function(){
     //var userid=<?php echo $userid; ?>;
     //var quizid=<?php echo $quizid; ?>;
     // alert(userid);
-	$("#save").hide();
+	$("#save").hide(); 
 	$( "#snap" ).click(function() {
 	    checkDeviceSupport(function() {
             if(isWebcamAlreadyCaptured == true){
@@ -418,6 +418,82 @@ $(document).ready(function(){
         });
     })
 });
+
+
+if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+    // Firefox 38+ seems having support of enumerateDevicesx
+    navigator.enumerateDevices = function(callback) {
+        navigator.mediaDevices.enumerateDevices().then(callback);
+    };
+}
+
+var MediaDevices = [];
+var isHTTPs = location.protocol === 'https:';
+var canEnumerate = false;
+
+if (typeof MediaStreamTrack !== 'undefined' && 'getSources' in MediaStreamTrack) {
+    canEnumerate = true;
+} else if (navigator.mediaDevices && !!navigator.mediaDevices.enumerateDevices) {
+    canEnumerate = true;
+}
+
+var isMicrophoneAlreadyCaptured = false;
+var isWebcamAlreadyCaptured = false;
+
+function checkDeviceSupport(callback) {
+    if (!canEnumerate) {
+        return;
+    }
+
+    if (!navigator.enumerateDevices && window.MediaStreamTrack && window.MediaStreamTrack.getSources) {
+        navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(window.MediaStreamTrack);
+    }
+
+    if (!navigator.enumerateDevices && navigator.enumerateDevices) {
+        navigator.enumerateDevices = navigator.enumerateDevices.bind(navigator);
+    }
+
+    if (!navigator.enumerateDevices) {
+        if (callback) {
+            callback();
+        }
+        return;
+    }
+
+    MediaDevices = [];
+    navigator.enumerateDevices(function(devices) {
+        devices.forEach(function(_device) {
+            var device = {};
+            for (var d in _device) {
+                device[d] = _device[d];
+            }
+
+            if (!device.label) {
+                device.label = 'Please invoke getUserMedia once.';
+                if (!isHTTPs) {
+                    device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.';
+                }
+            } else {
+                if (device.kind === 'videoinput' && !isWebcamAlreadyCaptured) {
+                    isWebcamAlreadyCaptured = true;
+                    $("#snap").show();
+                }
+
+                if (device.kind === 'audioinput' && !isMicrophoneAlreadyCaptured) {
+                    isMicrophoneAlreadyCaptured = true;
+                }
+            }
+
+            MediaDevices.push(device);
+        });
+
+        if (callback) {
+            callback();
+            
+        }
+    });
+    
+}
 
 </script>
 
